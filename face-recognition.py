@@ -1,9 +1,10 @@
 import face_recognition
 import cv2
 import numpy as np
+from playsound import playsound
 
 # Get a reference to webcam #0 (the default one)
-cap = cv2.VideoCapture('Resources/ade4.mp4')
+cap = cv2.VideoCapture("Resources/ade4.mp4")
 
 # Load a sample picture and learn how to recognize it.
 ade_image = face_recognition.load_image_file("Resources/ade.png")
@@ -54,11 +55,10 @@ while True:
             best_match_index = np.argmin(face_distances)
             if matches[best_match_index]:
                 name = known_face_names[best_match_index]
-
+                
             face_names.append(name)
 
-    process_this_frame = not process_this_frame
-
+    process_this_frame = not process_this_frame  
 
     # Display the results
     for (top, right, bottom, left), name in zip(face_locations, face_names):
@@ -78,6 +78,11 @@ while True:
 
     # Display the resulting image
     cv2.imshow('image1', frame)
+
+    if name == "Ade Rohdiana":
+        playsound ('Resources/ade.mp3')                 
+    else:
+        pass
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
